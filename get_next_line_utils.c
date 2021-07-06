@@ -12,9 +12,9 @@
 
 #include "get_next_line.h"
 
-size_t	ft_count(char *str, char c)
+size_t ft_count(char *str, char c)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (!str || !*str)
@@ -26,7 +26,7 @@ size_t	ft_count(char *str, char c)
 		return (i);
 	}
 	while (str[i])
-	{	
+	{
 		if (str[i] == c)
 			return (i);
 		i++;
@@ -34,11 +34,11 @@ size_t	ft_count(char *str, char c)
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char *ft_strjoin(char *s1, char *s2)
 {
-	char	*str;
-	int		i;
-	int		j;
+	char *str;
+	int i;
+	int j;
 
 	if ((!s1) && (!s2))
 		return (NULL);
@@ -63,11 +63,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+char *ft_substr(char *s, unsigned int start, size_t len)
 {
-	char	*str;
-	size_t	i;
-	size_t	strlen;
+	char *str;
+	size_t i;
+	size_t strlen;
 
 	if (!s)
 		return (NULL);
