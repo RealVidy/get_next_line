@@ -14,6 +14,7 @@
 #define GET_NEXT_LINE_H
 
 #include <assert.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,6 +23,9 @@
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 70
 #endif
+
+#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
 size_t ft_count(char *buf, char c);
 char *ft_strjoin(char *s1, char *s2);

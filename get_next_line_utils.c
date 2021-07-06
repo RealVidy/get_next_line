@@ -66,21 +66,22 @@ char *ft_substr(char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	if (start >= ft_count(s, '\0'))
-		strlen = 0;
-	else if (len > (ft_count(s, '\0') - start))
-		strlen = ft_count(s, '\0') - start;
-	else
-		strlen = len;
+	size_t original_len = ft_strlen(s);
+	if (start >= original_len)
+		return "";
+
+	strlen = MIN(MAX(0, original_len - start), len);
+
 	str = (char *)malloc(sizeof(*s) * (strlen + 1));
 	if (!str)
 		return (NULL);
+
 	i = 0;
 	while (s[i] && (i < strlen))
 	{
-		*(str + i) = *((char *)s + start + i);
+		str[i] = s[start + i];
 		i++;
 	}
-	*(str + strlen) = 0;
+	str[strlen] = 0;
 	return (str);
 }
