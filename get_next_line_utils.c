@@ -24,6 +24,11 @@ size_t ft_count(char *str, char c)
 	return (str[i] == c) ? i : 0;
 }
 
+int ft_strlen(char *s)
+{
+	return ft_count(s, '\0');
+}
+
 char *ft_strjoin(char *s1, char *s2)
 {
 	char *str;
@@ -34,7 +39,7 @@ char *ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	if (!s1)
 		return (s2);
-	str = malloc(sizeof(char) * (ft_count(s1, '\0') + ft_count(s2, '\0') + 1));
+	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 		return (NULL);
 	i = 0;

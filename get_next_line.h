@@ -13,10 +13,11 @@
 #ifndef GET_NEXT_LINE_H
 #define GET_NEXT_LINE_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 70

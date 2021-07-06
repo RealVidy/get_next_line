@@ -22,3 +22,15 @@
 		i++;
 	}
  ```
+ * Je vois que tu utilises `ft_count(s, '\0')` pour connaître la taille de `s`, c'est smart. Du coup c'est assez commun d'écrire une petite fonction comme celle qui suit pour t'éviter d'avoir à retaper le `'\0'` tout le temps mais surtout pour rendre ton code plus clair avec un nom de fonction plus explicite:
+ ```c
+	int ft_strlen(char *s)
+	{
+		return ft_count(s, '\0');
+	}
+ ``` 
+
+### ft_strjoin
+
+* Attention à ne pas oublier de checker si `s2` est `NULL` seule. `ft_strjoin("bla", NULL)` plante
+* Le reste me paraît tout à fait raisonnable !
