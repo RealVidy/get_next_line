@@ -12,10 +12,10 @@
 
 #include "get_next_line.h"
 
-int	ft_find_new_line(char **tmp, char **line)
+int ft_find_new_line(char **tmp, char **line)
 {
-	char	*var_to_free;
-	int		count;
+	char *var_to_free;
+	int count;
 
 	if (!*tmp)
 		*tmp = ft_substr("", 0, 0);
@@ -27,7 +27,7 @@ int	ft_find_new_line(char **tmp, char **line)
 			return (-1);
 		var_to_free = *tmp;
 		*tmp = ft_substr(*tmp, (count + 1), (ft_count(*tmp, '\0') - count - 1));
-		free (var_to_free);
+		free(var_to_free);
 		if (!*tmp)
 			return (-1);
 		return (1);
@@ -35,24 +35,24 @@ int	ft_find_new_line(char **tmp, char **line)
 	return (0);
 }
 
-int	ft_complete_tmp(char **tmp, char *buf)
+int ft_complete_tmp(char **tmp, char *buf)
 {
-	char	*var_to_free;
+	char *var_to_free;
 
 	var_to_free = *tmp;
 	*tmp = ft_strjoin(*tmp, buf);
-	free (var_to_free);
+	free(var_to_free);
 	if (!*tmp)
 		return (-1);
 	return (1);
 }
 
-int	ft_read(int fd, char *buf, int *read_return, char **tmp)
+int ft_read(int fd, char *buf, int *read_return, char **tmp)
 {
-	*read_return = read (fd, buf, BUFFER_SIZE);
+	*read_return = read(fd, buf, BUFFER_SIZE);
 	if (*read_return == -1)
 	{
-		free (*tmp);
+		free(*tmp);
 		*tmp = NULL;
 		return (-1);
 	}
@@ -60,12 +60,12 @@ int	ft_read(int fd, char *buf, int *read_return, char **tmp)
 	return (*read_return);
 }
 
-int	get_next_line(int fd, char **line)
+int get_next_line(int fd, char **line)
 {
-	char		buf[BUFFER_SIZE + 1];
-	static char	*tmp;
-	int			read_return;
-	int			is_new_line;
+	char buf[BUFFER_SIZE + 1];
+	static char *tmp;
+	int read_return;
+	int is_new_line;
 
 	if ((BUFFER_SIZE <= 0) || (fd < 0) || !line)
 		return (-1);
@@ -79,12 +79,12 @@ int	get_next_line(int fd, char **line)
 		if (read_return == -1)
 			return (-1);
 		if (!read_return)
-			break ;
+			break;
 		if (ft_complete_tmp(&tmp, buf) == -1)
 			return (-1);
 	}
 	*line = ft_substr(tmp, 0, ft_count(tmp, '\0'));
-	free (tmp);
+	free(tmp);
 	tmp = NULL;
 	return (0);
 }
