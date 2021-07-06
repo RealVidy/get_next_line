@@ -2,12 +2,13 @@
 
 int main(int argc, char const *argv[])
 {
-  const char c = argv[1][0];
-
   char *myStr = "Ah que coucou";
 
-  const int count = ft_count(myStr, c);
+  assert(ft_count(myStr, 'z') == 0);
+  assert(ft_count(myStr, '\0') == 13);
+  assert(ft_count(myStr, 'h') == 1);
+  assert(ft_count(myStr, ' ') == 2);
+  assert(ft_count(NULL, 'h') == 0);
 
-  printf("The count is %d", count);
   return 0;
 }

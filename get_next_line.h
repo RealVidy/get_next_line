@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 70
