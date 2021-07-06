@@ -4,7 +4,7 @@
 
 ### ft_count
 
-* Si je comprends bien, cette fonction doit trouver à quel index se trouve un char dans une string. Du coup le standard dans tous les languages c'est de l'appeler "find" plutôt que "count"
+* Si je comprends bien, cette fonction doit trouver à quel index se trouve un char dans une string. Du coup le standard dans tous les languages c'est de l'appeler "find" plutôt que "count". ça peut paraître insignifiant mais avec l'experience, retrouver les mêmes noms pour les fonctions qui font la même chose dans tous les languages, ça aide !
 * Ces 2 blocs de code se ressemblent pas mal, c'est souvent un signe que tu peux faire la même chose avec un seul bloc
 ```c 
   // Bloc 1
@@ -47,11 +47,10 @@ else if (len > (ft_count(s, '\0') - start))
 else
 	strlen = len;
 ```
-* 
+* J'ai l'impression que t'utilises plutôt la notation `str[i]` que `*(str + i)` d'habitude. Les deux fonctionnent mais si t'as le choix, je te conseille de toujours garder la même. Ton code est plus facile à lire et à comprendre si les mêmes conventions sont utilisées partout (c'est l'intérêt d'une coding style d'ailleurs)
 ```c
 // Cette notation
 *(str + i) = *((char *)s + start + i);
 // Ou celle-ci ?
 str[i] = s[start + i];
 ```
-J'ai l'impression que t'utilises plutôt la notation `str[i]` que `*(str + i)` d'habitude. Les deux fonctionnent mais si t'as le choix, je te conseille de toujours garder la même. Ton code est plus facile à lire et à comprendre si les mêmes conventions sont utilisées partout (c'est l'intérêt d'une coding style d'ailleurs)
