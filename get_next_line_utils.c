@@ -14,24 +14,14 @@
 
 size_t ft_count(char *str, char c)
 {
-	int i;
+	if (!str)
+		return 0;
 
-	i = 0;
-	if (!str || !*str)
-		return (0);
-	if (c == '\0')
-	{
-		while (str[i] != '\0')
-			i++;
-		return (i);
-	}
-	while (str[i])
-	{
-		if (str[i] == c)
-			return (i);
+	int i = 0;
+	while (str[i] != '\0' && str[i] != c)
 		i++;
-	}
-	return (0);
+
+	return (str[i] == c) ? i : 0;
 }
 
 char *ft_strjoin(char *s1, char *s2)
