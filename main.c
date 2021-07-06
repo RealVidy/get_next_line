@@ -18,8 +18,7 @@ void test_strjoin()
 
   assert(strcmp(ft_strjoin(s1, s2), "onetwo") == 0);
   assert(strcmp(ft_strjoin(NULL, s2), "two") == 0);
-  // segfault here
-  // assert(strcmp(ft_strjoin(s1, NULL), "one") == 0);
+  assert(strcmp(ft_strjoin(s1, NULL), "one") == 0);
   assert(ft_strjoin(NULL, NULL) == NULL);
 }
 
