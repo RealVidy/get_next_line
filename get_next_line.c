@@ -11,83 +11,80 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-#define BUFFER_SIZE 70
+int	ft_find_new_line(char **tmp, char **line)
+{
+	char	*var_to_free;
+	int		count;
 
-// sera definit pendant la compilation pr l'evaluateur
+	if (!*tmp)
+		*tmp = ft_substr("", 0, 0);
+	count = ft_count(*tmp, '\n');
+	if (count || (**tmp == '\n'))
+	{
+		*line = ft_substr(*tmp, 0, count);
+		if (!*line)
+			return (-1);
+		var_to_free = *tmp;
+		*tmp = ft_substr(*tmp, (count + 1), (ft_count(*tmp, '\0') - count - 1));
+		free (var_to_free);
+		if (!*tmp)
+			return (-1);
+		return (1);
+	}
+	return (0);
+}
 
-// int	ft_if_error(int fd, char **line, char *buf)
-// {
-// 	int	x;
-	
-// 	x = 0;
-// 	while(buf[x])
-// 	{
-// 		if ((buf[x] < 0) || (buf[x] >= 127))
-// 			return (1);
-// 	}
-// 	return (0);
-// }
+int	ft_complete_tmp(char **tmp, char *buf)
+{
+	char	*var_to_free;
+
+	var_to_free = *tmp;
+	*tmp = ft_strjoin(*tmp, buf);
+	free (var_to_free);
+	if (!*tmp)
+		return (-1);
+	return (1);
+}
+
+int	ft_read(int fd, char *buf, int *read_return, char **tmp)
+{
+	*read_return = read (fd, buf, BUFFER_SIZE);
+	if (*read_return == -1)
+	{
+		free (*tmp);
+		*tmp = NULL;
+		return (-1);
+	}
+	buf[*read_return] = '\0';
+	return (*read_return);
+}
 
 int	get_next_line(int fd, char **line)
 {
 	char		buf[BUFFER_SIZE + 1];
-	static char	*temp;
+	static char	*tmp;
 	int			read_return;
-	int			count;
+	int			is_new_line;
 
 	if ((BUFFER_SIZE <= 0) || (fd < 0) || !line)
 		return (-1);
 	read_return = BUFFER_SIZE;
-	while (read_return != -1)
+	while (read_return > 0)
 	{
-		if (!temp)
-			temp = ft_strdup("");
-		count = ft_count_until_newline(temp);
-		if (count || (*temp == '\n'))
-		{
-			*line = ft_substr(temp, 0, count);
-			temp = ft_substr(temp, (count + 1), (ft_strlen(temp) - count));
-			return (1);
-		}
-		read_return = read (fd, buf, BUFFER_SIZE);
+		is_new_line = ft_find_new_line(&tmp, line);
+		if ((is_new_line == -1) || (is_new_line == 1))
+			return (is_new_line);
+		read_return = ft_read(fd, buf, &read_return, &tmp);
 		if (read_return == -1)
 			return (-1);
-		buf[read_return] = '\0';
 		if (!read_return)
-		{
-			*line = temp;
-			return (0);
-		}
-		temp = ft_strjoin(temp, buf);
+			break ;
+		if (ft_complete_tmp(&tmp, buf) == -1)
+			return (-1);
 	}
-	*line = temp;
-	free(temp);
-	return (0);
-}
-
-int	main(void)
-{
-	int fd;
-	char **line;
-	int	i;
-//	line = NULL;
-	fd = open("fichiertxt",O_RDONLY);
-
-i = 0;
-while(get_next_line(fd, line) > 0)
-{
-	i++;
-	printf("Ligne %d : %s\n", i, *line);	
-}
-i++;
-printf("Ligne %d : %s\n", i, *line);
-
-	if (close(fd) == -1)
-	{
-		printf("Close failed\n");
-		return (-1);
-	}
+	*line = ft_substr(tmp, 0, ft_count(tmp, '\0'));
+	free (tmp);
+	tmp = NULL;
 	return (0);
 }

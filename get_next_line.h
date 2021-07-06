@@ -13,28 +13,20 @@
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stddef.h>
 # include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
 # include <stdlib.h>
-# include <stdio.h>
 
-void			ft_bzero(void *s, size_t n);
-void			*ft_calloc(size_t count, size_t size);
-unsigned long	ft_strlen(const char *str);
-size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
-void			*ft_memmove(void *dst, const void *src, size_t n);
-void			*ft_memcpy(void *dst, const void *src, size_t n);
-int				ft_isnewline(char *buf);
-char			*ft_strjoin(char const *s1, char *s2);
-char 			**ft_split_one_t(char const *s, char c);
-char			*ft_substr(char const *s, unsigned int start, size_t len);
-int				ft_hasnewline(char *buf);
-int				ft_count_until_newline(char *buf);
-char			*ft_strdup(const char *s1);
-void			*ft_memcpy(void *dst, const void *src, size_t n);
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 70
+# endif
+
+size_t	ft_count(char *buf, char c);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+int		ft_init(int fd, char **line, int *read_return);
+int		ft_find_new_line(char **temp, char **line);
+int		ft_complete_temp(char **temp, char *buf);
+int		ft_read(int fd, char *buf, int *read_return, char **temp);
+int		get_next_line(int fd, char **line);
 
 #endif
-
