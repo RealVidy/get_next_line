@@ -12,79 +12,58 @@
 
 #include "get_next_line.h"
 
-int ft_find_new_line(char **tmp, char **line)
+int ft_build_new_line(char **pointer_to_next_line, char **line)
 {
-	char *var_to_free;
-	int count;
+	int idx;
 
-	if (!*tmp)
-		*tmp = ft_substr("", 0, 0);
-	count = ft_find(*tmp, '\n');
-	if (count || (**tmp == '\n'))
+	if (!*pointer_to_next_line)
+		*pointer_to_next_line = "";
+
+	idx = ft_find(*pointer_to_next_line, '\n');
+	if (idx > 0 || (**pointer_to_next_line == '\n'))
 	{
-		*line = ft_substr(*tmp, 0, count);
+		// printf("idx: %d\n", idx);
+		// We found a \n at index `idx`
+		*line = ft_substr(*pointer_to_next_line, 0, idx);
 		if (!*line)
 			return (-1);
-		var_to_free = *tmp;
-		*tmp = ft_substr(*tmp, (count + 1), (ft_find(*tmp, '\0') - count - 1));
-		free(var_to_free);
-		if (!*tmp)
+
+		*pointer_to_next_line += (idx + 1);
+		if (!*pointer_to_next_line)
 			return (-1);
 		return (1);
 	}
 	return (0);
 }
 
-int ft_complete_tmp(char **tmp, char *buf)
-{
-	char *var_to_free;
-
-	var_to_free = *tmp;
-	*tmp = ft_strjoin(*tmp, buf);
-	// free(var_to_free);
-	if (!*tmp)
-		return (-1);
-	return (1);
-}
-
-int ft_read(int fd, char *buf, int *read_return, char **tmp)
-{
-	*read_return = read(fd, buf, BUFFER_SIZE);
-	if (*read_return == -1)
-	{
-		free(*tmp);
-		*tmp = NULL;
-		return (-1);
-	}
-	buf[*read_return] = '\0';
-	return (*read_return);
-}
-
 int get_next_line(int fd, char **line)
 {
 	char buf[BUFFER_SIZE + 1];
-	static char *tmp;
+	static char *persistent_buf;
+	static char *pointer_to_next_line;
 	int read_return;
 	int is_new_line;
 
 	if ((BUFFER_SIZE <= 0) || (fd < 0) || !line)
 		return (-1);
-	read_return = BUFFER_SIZE;
-	while (read_return > 0)
+
+	do
 	{
-		is_new_line = ft_find_new_line(&tmp, line);
+		is_new_line = ft_build_new_line(&pointer_to_next_line, line);
 		if ((is_new_line == -1) || (is_new_line == 1))
 			return (is_new_line);
-		read_return = ft_read(fd, buf, &read_return, &tmp);
-		if (read_return == -1)
-			return (-1);
+
+		read_return = read(fd, buf, BUFFER_SIZE);
 		if (!read_return)
 			break;
-		if (ft_complete_tmp(&tmp, buf) == -1)
-			return (-1);
-	}
-	*line = ft_substr(tmp, 0, ft_find(tmp, '\0'));
-	// free(tmp);
-	tmp = NULL;
+		buf[read_return] = '\0';
+
+		free(persistent_buf);
+		persistent_buf = ft_strjoin("", buf);
+		pointer_to_next_line = persistent_buf;
+	} while (read_return > 0);
+
+	*line = ft_substr(pointer_to_next_line, 0, ft_find(pointer_to_next_line, '\0'));
+	pointer_to_next_line = NULL;
 	return (0);
 }
