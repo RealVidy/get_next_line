@@ -54,3 +54,14 @@ else
 // Ou celle-ci ?
 str[i] = s[start + i];
 ```
+
+## Get next line
+
+* La première chose que je remarque c'est qu'il y a beaucoup de `free` dans ces fonctions et que c'est un coup à s'emmêler les pinceaux. Il vaut mieux réorganiser son code pour faire un seul free en toute fin de programme (si possible) plutôt qu'en plein milieu à chaque fois qu'il y a une erreur par exemple. L'idéal c'est même de free dans la même fonction que celle qui fait l'appel à l'util qui malloc
+* La deuxième, c'est deux noms de variables: `var_to_free` et `tmp`. Avec la première je comprends direct ce que tu veux faire avec donc c'est un super nom. La deuxième, c'est l'inverse, je ne sais pas à quoi elle sert sans lire le code, et même après l'avoir lu je risque d'avoir du mal à être sûr. Pour toi qui a écrit le code, je suppose que c'est à peu près clair quand le code est frais, mais si tu reviens dessus 3 jours plus tard, tu vas aussi galérer un peu, et ça fait une charge cognitive de plus
+
+### ft_read
+* `char **tmp` n'est passé à cette fonction que dans le but d'appeler `free` dessus si le `read` rate. Étant donné qu'elle n'a pas d'utilité dans cette fonction, c'est un bon signe qu'elle ne devrait pas être passée en paramêtre du tout. Tu peux probablement faire le free dans `get_next_line` si `ft_read` retourne une erreur (ça rejoint mon point sur les `free` fait plus tôt)
+* En retirant le free de `ft_read`, tu vas sûrement te rendre compte que `ft_read` est quasiment la même chose que `read` tout court. Je pense en effet que `ft_read` n'est pas une fonction que tu as besoin d'écrire, tu devrais pouvoir utiliser `read` directement dans `get_next_line`
+
+### ft_complete_tmp
