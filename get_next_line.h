@@ -32,6 +32,7 @@ size_t ft_find(char *buf, char c);
 char *ft_strjoin(char *s1, char *s2);
 char *ft_substr(char *s, unsigned int start, size_t len);
 int ft_init(int fd, char **line, int *read_return);
+int ft_strlen(char *s);
 int ft_find_new_line(char **temp, char **line);
 int ft_complete_temp(char **temp, char *buf);
 int ft_read(int fd, char *buf, int *read_return, char **temp);
