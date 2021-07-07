@@ -41,7 +41,7 @@ int ft_complete_tmp(char **tmp, char *buf)
 
 	var_to_free = *tmp;
 	*tmp = ft_strjoin(*tmp, buf);
-	free(var_to_free);
+	// free(var_to_free);
 	if (!*tmp)
 		return (-1);
 	return (1);
@@ -84,7 +84,7 @@ int get_next_line(int fd, char **line)
 			return (-1);
 	}
 	*line = ft_substr(tmp, 0, ft_find(tmp, '\0'));
-	free(tmp);
+	// free(tmp);
 	tmp = NULL;
 	return (0);
 }
