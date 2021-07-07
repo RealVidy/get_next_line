@@ -39,17 +39,18 @@ void test_substr()
 void assert_next_line(int fd, char *line, int expected_result, char *expected_line)
 {
   int result = get_next_line(fd, &line);
-  puts(line);
-  printf("res: %d\n", result);
-  printf("expected res: %d\n", expected_result);
+  // printf("Line: %s\n", line);
+  // printf("Expected line: %s\n", expected_line);
   assert(result == expected_result);
-  assert(strcmp(line, expected_line) == 0);
+  if (expected_line)
+    assert(strcmp(line, expected_line) == 0);
 }
 
 void test_get_next_line()
 {
-  char *line;
-  int fd = open("fichiertxt", O_RDONLY);
+  char *line = NULL;
+  int fd;
+  fd = open("fichiertxt", O_RDONLY);
 
   assert_next_line(fd, line, 1, "Coucou");
   assert_next_line(fd, line, 1, "C'est");
@@ -61,8 +62,10 @@ void test_get_next_line()
   assert_next_line(fd, line, 1, "");
   assert_next_line(fd, line, 0, "0");
   assert_next_line(fd, line, 0, "");
-  assert_next_line(fd, line, 0, "");
-  assert_next_line(fd, line, 0, "");
+
+  fd = open("fichiertxtnope", O_RDONLY);
+
+  assert_next_line(fd, line, -1, NULL);
 }
 
 int main(int argc, char const *argv[])
