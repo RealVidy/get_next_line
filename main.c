@@ -1,14 +1,14 @@
 #include "get_next_line.h"
 
-void test_count()
+void test_find()
 {
   char *myStr = "Ah que coucou";
 
-  assert(ft_count(myStr, 'z') == 0);
-  assert(ft_count(myStr, '\0') == 13);
-  assert(ft_count(myStr, 'h') == 1);
-  assert(ft_count(myStr, ' ') == 2);
-  assert(ft_count(NULL, 'h') == 0);
+  assert(ft_find(myStr, 'z') == 0);
+  assert(ft_find(myStr, '\0') == 13);
+  assert(ft_find(myStr, 'h') == 1);
+  assert(ft_find(myStr, ' ') == 2);
+  assert(ft_find(NULL, 'h') == 0);
 }
 
 void test_strjoin()
@@ -38,7 +38,7 @@ void test_substr()
 
 int main(int argc, char const *argv[])
 {
-  // test_count();
+  // test_find();
   // test_strjoin();
   test_substr();
 

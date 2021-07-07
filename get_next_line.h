@@ -14,6 +14,7 @@
 #define GET_NEXT_LINE_H
 
 #include <assert.h>
+#include <fcntl.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +28,7 @@
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
-size_t ft_count(char *buf, char c);
+size_t ft_find(char *buf, char c);
 char *ft_strjoin(char *s1, char *s2);
 char *ft_substr(char *s, unsigned int start, size_t len);
 int ft_init(int fd, char **line, int *read_return);

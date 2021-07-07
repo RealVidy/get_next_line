@@ -19,14 +19,14 @@ int ft_find_new_line(char **tmp, char **line)
 
 	if (!*tmp)
 		*tmp = ft_substr("", 0, 0);
-	count = ft_count(*tmp, '\n');
+	count = ft_find(*tmp, '\n');
 	if (count || (**tmp == '\n'))
 	{
 		*line = ft_substr(*tmp, 0, count);
 		if (!*line)
 			return (-1);
 		var_to_free = *tmp;
-		*tmp = ft_substr(*tmp, (count + 1), (ft_count(*tmp, '\0') - count - 1));
+		*tmp = ft_substr(*tmp, (count + 1), (ft_find(*tmp, '\0') - count - 1));
 		free(var_to_free);
 		if (!*tmp)
 			return (-1);
@@ -83,7 +83,7 @@ int get_next_line(int fd, char **line)
 		if (ft_complete_tmp(&tmp, buf) == -1)
 			return (-1);
 	}
-	*line = ft_substr(tmp, 0, ft_count(tmp, '\0'));
+	*line = ft_substr(tmp, 0, ft_find(tmp, '\0'));
 	free(tmp);
 	tmp = NULL;
 	return (0);

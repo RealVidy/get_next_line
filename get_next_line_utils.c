@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-size_t ft_count(char *str, char c)
+size_t ft_find(char *str, char c)
 {
 	if (!str)
 		return 0;
@@ -26,7 +26,7 @@ size_t ft_count(char *str, char c)
 
 int ft_strlen(char *s)
 {
-	return ft_count(s, '\0');
+	return ft_find(s, '\0');
 }
 
 char *ft_strjoin(char *s1, char *s2)
